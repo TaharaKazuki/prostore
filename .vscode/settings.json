@@ -7,5 +7,6 @@
   "eslint.validate": [],
   "tailwindCSS.experimental.classRegex": [
     ["ctl\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-  ]
+  ],
+  "cSpell.words": ["ecommerce", "Prostore"]
 }
