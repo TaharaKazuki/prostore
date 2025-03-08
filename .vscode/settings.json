@@ -18,5 +18,8 @@
   "prettier.configPath": ".prettierrc",
   "prettier.requireConfig": true,
   "prettier.documentSelectors": ["**/*.{ts,tsx,js,jsx,css,scss,html}"],
-  "cSpell.words": ["ecommerce", "Prostore"]
+  "cSpell.words": ["ecommerce", "Prostore"],
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  }
 }
