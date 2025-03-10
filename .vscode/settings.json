@@ -18,7 +18,13 @@
   "prettier.configPath": ".prettierrc",
   "prettier.requireConfig": true,
   "prettier.documentSelectors": ["**/*.{ts,tsx,js,jsx,css,scss,html}"],
-  "cSpell.words": ["dbgenerated", "ecommerce", "Prostore", "turbopack"],
+  "cSpell.words": [
+    "dbgenerated",
+    "ecommerce",
+    "neondatabase",
+    "Prostore",
+    "turbopack"
+  ],
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   }
