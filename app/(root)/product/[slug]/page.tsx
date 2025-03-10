@@ -2,14 +2,16 @@ import { notFound } from 'next/navigation';
 
 import { getProductBySlug } from '@/lib/actions/product.actions';
 
-const ProductDetailsPage = async (props: {
+type ProductDetailsPageProps = {
   params: Promise<{ slug: string }>;
-}) => {
-  const { slug } = await props.params;
-  const product = await getProductBySlug(slug);
-  if (!product) notFound();
+};
 
-  return <div>{product.name}</div>;
+const ProductDetailsPage = async ({ params }: ProductDetailsPageProps) => {
+  const { slug } = await params;
+  const product = await getProductBySlug(slug);
+  if (!product) return notFound();
+
+  return <div>ProductDetailsPage</div>;
 };
 
 export default ProductDetailsPage;
