@@ -23,7 +23,8 @@
     "ecommerce",
     "neondatabase",
     "Prostore",
-    "turbopack"
+    "turbopack",
+    "utfs"
   ],
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
