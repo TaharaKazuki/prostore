@@ -19,6 +19,7 @@
   "prettier.requireConfig": true,
   "prettier.documentSelectors": ["**/*.{ts,tsx,js,jsx,css,scss,html}"],
   "cSpell.words": [
+    "cuid",
     "dbgenerated",
     "ecommerce",
     "neondatabase",
