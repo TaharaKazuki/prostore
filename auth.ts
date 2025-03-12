@@ -1,6 +1,6 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { compareSync } from 'bcrypt-ts-edge';
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import { prisma } from '@/db/prisma';
@@ -12,10 +12,10 @@ export const config = {
   },
   session: {
     strategy: 'jwt' as const,
-    masAge: 30 * 24 * 60 * 60, // 30days
+    maxAge: 30 * 24 * 60 * 60, // 30days
   },
   adapter: PrismaAdapter(prisma),
-  provider: [
+  providers: [
     CredentialsProvider({
       credentials: {
         email: { type: 'email' },
@@ -24,7 +24,6 @@ export const config = {
       async authorize(credentials) {
         if (credentials == null) return null;
 
-        // Find user in database
         const user = await prisma.user.findFirst({
           where: {
             email: credentials.email as string,
@@ -32,11 +31,38 @@ export const config = {
         });
 
         if (user && user.password) {
-          const isMatch = compareSync;
+          const isMatch = compareSync(
+            credentials.password as string,
+            user.password
+          );
+
+          if (isMatch) {
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              role: user.role,
+            };
+          }
         }
+        return null;
       },
     }),
   ],
-};
+  callbacks: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async session({ session, user, trigger, token }: any) {
+      session.user.id = token.sub;
+      session.user.role = token.role;
+      session.user.name = token.name;
+
+      if (trigger === 'update') {
+        session.user.name = user.name;
+      }
+
+      return session;
+    },
+  },
+} satisfies NextAuthConfig;
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config);
