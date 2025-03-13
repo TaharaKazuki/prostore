@@ -18,7 +18,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <Image
             src={product.images[0]}
             alt={product.name}
-            width={300}
+            width={230}
             height={300}
           />
         </Link>
