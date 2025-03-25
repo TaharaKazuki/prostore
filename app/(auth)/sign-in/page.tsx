@@ -13,6 +13,8 @@ import {
 } from '@/components/ui/card';
 import { APP_NAME } from '@/lib/constants';
 
+import CredentialsSignInForm from './credentials-signin-form';
+
 export const metadata: Metadata = {
   title: 'Sign in',
 };
@@ -50,7 +52,9 @@ const SignInPage = async ({ searchParams }: SignInPageProps) => {
             Sign in to your account
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4"></CardContent>
+        <CardContent className="space-y-4">
+          <CredentialsSignInForm />
+        </CardContent>
       </Card>
     </div>
   );
