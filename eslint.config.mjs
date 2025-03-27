@@ -54,6 +54,28 @@ const eslintConfig = [
             'sibling',
             'index',
           ],
+          pathGroups: [
+            {
+              pattern: '^@core/(.*)$',
+              group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: '^@server/(.*)$',
+              group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: '^@ui/(.*)$',
+              group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: '^@/(.*)$',
+              group: 'internal',
+              position: 'before',
+            },
+          ],
           'newlines-between': 'always',
           alphabetize: {
             order: 'asc',
