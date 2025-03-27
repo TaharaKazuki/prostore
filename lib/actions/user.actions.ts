@@ -7,6 +7,8 @@ import { signIn, signOut } from '@/auth';
 import { prisma } from '@/db/prisma';
 import { signInFormSchema, signUpFormSchema } from '@/lib/validators';
 
+import { formatError } from '../utils';
+
 export async function signInWithCredentials(
   prevState: unknown,
   formData: FormData
@@ -56,7 +58,9 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       password: plainPassword,
     });
   } catch (error) {
-    console.error('ユーザー登録エラー:', error);
-    return { success: false, message: 'ユーザー登録に失敗しました' };
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    return { success: false, message: formatError(error) };
   }
 }
