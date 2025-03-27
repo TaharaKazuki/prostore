@@ -15,23 +15,18 @@ type AddToCartProps = {
 const AddToCart = ({ item }: AddToCartProps) => {
   const router = useRouter();
 
-  const [isPending, startTransition] = useTransition();
+  const [_isPending, startTransition] = useTransition();
 
   const handleAddCart = async () => {
     startTransition(async () => {
       const res = await addItemToCart(item);
       if (!res.success) {
-        toast('Item added to cart', {
-          description: res.message,
+        toast(res.message, {
           style: { background: '#dc2626', color: '#fff' },
         });
         return;
       }
-      toast('Event has been created', {
-        description: res.message,
-        classNames: {
-          toast: 'border-2 border-red-500',
-        },
+      toast(res.message, {
         action: {
           label: 'Go To Cart',
           onClick: () => router.push('/cart'),
