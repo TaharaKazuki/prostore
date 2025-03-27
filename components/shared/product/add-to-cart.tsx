@@ -27,8 +27,11 @@ const AddToCart = ({ item }: AddToCartProps) => {
         });
         return;
       }
-      toast('Item added to cart', {
+      toast('Event has been created', {
         description: res.message,
+        classNames: {
+          toast: 'border-2 border-red-500',
+        },
         action: {
           label: 'Go To Cart',
           onClick: () => router.push('/cart'),
