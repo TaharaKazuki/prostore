@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 
+import { Toaster } from '@/components/ui/sonner';
 import { APP_NAME, APP_DESCRIPTION, SERVER_URL } from '@/lib/constants';
 
 import '@/assets/styles/globals.css';
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

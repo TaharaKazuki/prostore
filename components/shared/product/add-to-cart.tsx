@@ -1,5 +1,11 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
+import { toast } from 'sonner';
+
+import { Button } from '@/components/ui/button';
+import { addItemToCart } from '@/lib/actions/cart.actions';
 import { CartItem } from '@/types';
 
 type AddToCartProps = {
@@ -7,8 +13,35 @@ type AddToCartProps = {
 };
 
 const AddToCart = ({ item }: AddToCartProps) => {
-  console.info(item);
-  return <div>AddToCart</div>;
+  const router = useRouter();
+
+  const [isPending, startTransition] = useTransition();
+
+  const handleAddCart = async () => {
+    startTransition(async () => {
+      const res = await addItemToCart(item);
+      if (!res.success) {
+        toast('Item added to cart', {
+          description: res.message,
+          style: { background: '#dc2626', color: '#fff' },
+        });
+        return;
+      }
+      toast('Item added to cart', {
+        description: res.message,
+        action: {
+          label: 'Go To Cart',
+          onClick: () => router.push('/cart'),
+        },
+      });
+    });
+  };
+
+  return (
+    <Button className="w-full" type="button" onClick={handleAddCart}>
+      AddToCart
+    </Button>
+  );
 };
 
 export default AddToCart;
