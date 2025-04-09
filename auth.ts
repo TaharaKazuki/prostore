@@ -1,5 +1,6 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { compareSync } from 'bcrypt-ts-edge';
+import { NextResponse } from 'next/server';
 import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -64,6 +65,23 @@ export const config = {
           });
         }
         return token;
+      }
+    },
+    authorized({ request }) {
+      if (!request.cookies.get('sessionCartId')) {
+        const sessionCartId = crypto.randomUUID();
+
+        const newRequestHeaders = new Headers(request.headers);
+
+        const response = NextResponse.next({
+          request: {
+            headers: newRequestHeaders,
+          },
+        });
+        response.cookies.set('sessionCartId', sessionCartId);
+        return response;
+      } else {
+        return true;
       }
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
