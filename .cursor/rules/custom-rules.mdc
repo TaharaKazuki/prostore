@@ -1,6 +1,7 @@
 ---
-description: component style guide
-globs: 
+description: 
+globs: *.tsx
+alwaysApply: false
 ---
 # Your rule content
 
